@@ -8,11 +8,7 @@ class Bubble::Thread
   end
 
   def latest_rollup
-    if entries.last&.rollup?
-      entries.last.rollup
-    else
-      Rollup.new bubble: bubble
-    end
+    entries.last&.rollup || Rollup.new(bubble: bubble)
   end
 
   private
