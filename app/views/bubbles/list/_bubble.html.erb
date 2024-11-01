@@ -1,4 +1,5 @@
-<li class="flex align-center gap margin-none" style="--bubble-color: <%= bubble.color %>; <%= bubble_rotation(bubble) %>">
+<li class="flex align-center gap margin-none" style="--bubble-color: <%= bubble.color %>; <%= bubble_rotation(bubble) %>"
+    data-controller="animation" data-animation-play-class="bubble--wobble" data-animation-play-on-load-value="true" data-action="mouseover->animation#play">
   <div class="bubble__shape"></div>
 
   <%= link_to bucket_bubble_path(bubble.bucket, bubble), class: "bubble__title-link flex align-center gap flex-item-grow min-width" do %>

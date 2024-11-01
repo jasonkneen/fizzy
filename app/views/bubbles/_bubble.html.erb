@@ -1,7 +1,8 @@
 <% cache bubble do %>
   <div class="bubble"
     style="view-transition-name: bubble-<%= bubble.id -%>; --bubble-color: <%= bubble.color %>; <%= bubble_rotation(bubble) %> <%= bubble_size(bubble) %>"
-    data-controller="upload-preview">
+    data-controller="animation upload-preview"
+    data-animation-play-class="bubble--wobble" data-animation-play-on-load-value="true" data-action="mouseover->animation#play">
 
     <h1 class="bubble__title">
       <%= turbo_frame_tag bubble, :edit do %>

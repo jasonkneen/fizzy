@@ -50,14 +50,6 @@
 
   [data-turbo-preview] & { animation: none; }
 
-  @media (hover: hover) {
-    .windshield &:hover {
-      .bubble__shape {
-        animation: wobble 1200ms normal forwards ease-out;
-      }
-    }
-  }
-
   > * {
     grid-area: 1/1;
   }
@@ -428,11 +420,6 @@
         background-color: color(from var(--bubble-color) srgb r g b / 0.15);
         border: 0;
         border-radius: 0.6em;
-
-        .bubble__shape {
-          animation: wobble 1200ms normal forwards ease-out;
-          transform: rotate(var(--bubble-rotate)) scale(1.2);
-        }
       }
     }
   }
@@ -480,6 +467,7 @@
   position: relative;
   transform: rotate(var(--bubble-rotate));
   transition: 200ms ease-out;
+  z-index: 0;
 
   .bubble & {
     background-color: color(from var(--bubble-color) srgb r g b / 0.15);
@@ -494,5 +482,14 @@
 
   .bubble__perma & {
     stroke-width: 0.6em;
+  }
+
+  .windshield .bubble--wobble & {
+    animation: wobble 1200ms normal forwards ease-out;
+  }
+
+  .bubble--wobble:nth-child(even) & {
+    animation-name: wobble-alt;
+    animation-duration: 900ms;
   }
 }
