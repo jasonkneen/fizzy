@@ -17,7 +17,7 @@ class FiltersController < ApplicationController
     end
 
     def filter_params
-      params.permit(*Filter::KNOWN_PARAMS).compact_blank
+      params.permit(*Filter::PERMITTED_PARAMS).compact_blank
     end
 
     def redirect_after_destroy

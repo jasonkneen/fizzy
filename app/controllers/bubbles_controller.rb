@@ -33,7 +33,7 @@ class BubblesController < ApplicationController
 
   private
     def set_filter
-      @filter = Current.user.filters.build params.permit(*Filter::KNOWN_PARAMS)
+      @filter = Current.user.filters.build params.permit(*Filter::PERMITTED_PARAMS)
     end
 
     def set_bubble

@@ -1,10 +1,10 @@
 module Filter::Params
   extend ActiveSupport::Concern
 
-  KNOWN_PARAMS = [ :indexed_by, :assignments, bucket_ids: [], assignee_ids: [], tag_ids: [] ]
+  PERMITTED_PARAMS = [ :indexed_by, :assignments, bucket_ids: [], assignee_ids: [], tag_ids: [] ]
 
   included do
-    before_save { self.params_digest = hashed_params }
+    before_save { self.params_digest = self.class.digest_params(as_params) }
   end
 
   def as_params
@@ -28,12 +28,8 @@ module Filter::Params
   end
 
   def to_params
-    ActionController::Parameters.new(as_params).permit(*KNOWN_PARAMS).tap do |params|
+    ActionController::Parameters.new(as_params).permit(*PERMITTED_PARAMS).tap do |params|
       params[:filter_id] = id if persisted?
     end
-  end
-
-  def hashed_params
-    Digest::MD5.hexdigest as_params.to_json
   end
 end
