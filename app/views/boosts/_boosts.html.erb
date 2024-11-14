@@ -1,6 +1,14 @@
-<%= button_to bucket_bubble_boosts_path(bubble.bucket, bubble),
+<%= tag.div class: "bubble__bubble bubble__meta bubble__boosts",
+      data: {
+        controller: "animation toggle-class",
+        animation_play_class: "boosting",
+        toggle_class_toggle_class: "boosting",
+        action: "animationend->toggle-class#toggle" },
+      hidden: !bubble.boost_count.positive? do %>
+  <%= button_to bucket_bubble_boosts_path(bubble.bucket, bubble),
       class: "btn btn--plain",
       data: { action: "toggle-class#toggle" },
       form_class: "full-width" do %>
-  + <%= bubble.boost_count if bubble.boost_count.positive? %>
+    + <%= bubble.boost_count if bubble.boost_count.positive? %>
+  <% end %>
 <% end %>

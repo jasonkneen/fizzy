@@ -19,16 +19,4 @@ module BubblesHelper
 
     "--bubble-size: var(--bubble-size-#{rank});"
   end
-
-  def bubble_action_button(action_id, icon_name, text)
-    button_tag(
-      class: "btn full-width justify-start borderless",
-      onclick: "document.getElementById('#{action_id}').removeAttribute('hidden')"
-    ) do
-      safe_join([
-        image_tag("#{icon_name}.svg", aria: { hidden: true }, size: 24),
-        content_tag(:span, text)
-      ])
-    end
-  end
 end

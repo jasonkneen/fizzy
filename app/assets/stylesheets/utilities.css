@@ -253,7 +253,7 @@
 }
 
 /* Visibility */
-[hidden] { display: none; }
+[hidden] { display: none !important; }
 [contents] { display: contents; }
 
 /* Turbo */

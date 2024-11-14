@@ -82,7 +82,10 @@
       <% end %>
     <% end %>
 
-    <%= bubble_action_button('new-boost', 'thumb-up', 'Boost this') %>
+    <%= button_to bucket_bubble_boosts_path(@bubble.bucket, @bubble), class: "btn full-width justify-start borderless", data: { turbo_frame: dom_id(@bubble, :boosts) } do %>
+      <%= image_tag "thumb-up.svg", aria: { hidden: true }, size: 24 %>
+      <span>Boost this</span>
+    <% end %>
   </div>
 </aside>
 
