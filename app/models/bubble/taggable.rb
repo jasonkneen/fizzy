@@ -9,7 +9,7 @@ module Bubble::Taggable
   end
 
   def toggle_tag_with(title)
-    tag = find_or_create_tag_by_title(title)
+    tag = bucket.account.tags.find_or_create_by!(title: title)
 
     transaction do
       if tagged_with?(tag)
@@ -23,9 +23,4 @@ module Bubble::Taggable
   def tagged_with?(tag)
     tags.include? tag
   end
-
-  private
-    def find_or_create_tag_by_title(title)
-      bucket.account.tags.find_by("lower(title) = ?", title.downcase) || bucket.account.tags.create!(title: title)
-    end
 end

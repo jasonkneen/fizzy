@@ -104,10 +104,10 @@ class FilterTest < ActiveSupport::TestCase
   end
 
   test "summary" do
-    assert_equal "Most discussed, tagged #Mobile, and assigned to JZ ", filters(:jz_assignments).summary
+    assert_equal "Most discussed, tagged #mobile, and assigned to JZ ", filters(:jz_assignments).summary
 
     filters(:jz_assignments).update!(stages: workflow_stages(:qa_triage, :qa_in_progress))
-    assert_equal "Most discussed, tagged #Mobile, assigned to JZ, and staged in Triage or In progress ", filters(:jz_assignments).summary
+    assert_equal "Most discussed, tagged #mobile, assigned to JZ, and staged in Triage or In progress ", filters(:jz_assignments).summary
 
     filters(:jz_assignments).update!(stages: [], assignees: [], tags: [], buckets: [ buckets(:writebook) ])
     assert_equal "Most discussed in Writebook", filters(:jz_assignments).summary
