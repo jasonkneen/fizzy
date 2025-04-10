@@ -1,0 +1,40 @@
+@layer components {
+  .card-filter--collection {
+    > button {
+      --hover-size: 0;
+    }
+  }
+
+  .card-filter--column {
+    > button {
+      --hover-size: 0;
+
+      inline-size: auto;
+      padding: 0 2em 0 0;
+      margin-inline-start: 2em;
+    }
+  }
+
+  .card-filter--sorting {
+    inset: auto 50% -4em;
+    margin-inline-start: -1em;
+    position: absolute;
+    transform: translateX(-50%);
+
+    #header:has(&) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .card-count__selector {
+    inset: 0.5cqi 0.5cqi auto auto;
+    position: absolute;
+    text-align: start;
+    z-index: 1;
+
+    .popup {
+      inset: 1em 1em auto auto;
+    }
+  }
+}

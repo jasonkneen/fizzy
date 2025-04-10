@@ -1,0 +1,139 @@
+/* Card container for the perma. Tools and actions and whatnot */
+
+@layer components {
+  .card-container {
+    --actions-block-inset: 1.5rem;
+    --actions-inline-inset: 4rem;
+    --color-container: color-mix(in srgb, var(--card-color) 33%, var(--color-bg));
+    --padding-inline: calc(var(--block-space-double) + var(--block-space));
+    --padding-block: var(--block-space-double) calc(var(--block-space-double) + var(--block-space-half));
+
+    align-items: start;
+    column-gap: var(--inline-space);
+    display: grid;
+    grid-template-columns: auto minmax(0, 960px) auto;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    margin-inline: auto;
+
+    &:has(.card-container__star-input:checked) {
+      .card {
+        outline: 4px solid var(--color-negative);
+      }
+    }
+
+    .card {
+      --card-aspect-ratio: 2 / 0.95;
+
+      border: none;
+    }
+  }
+
+  /* Children
+  /* ------------------------------------------------------------------------ */
+
+  .card-container__bg {
+    background-color: var(--color-container);
+    border-radius: 0.2em;
+    padding: var(--padding-block) var(--padding-inline);
+  }
+
+  .card-container__actions {
+    display: grid;
+    gap: var(--block-space-half);
+
+    &:has([open]) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .card-container__cutout {
+    --card-cutout-padding-block: 0.5ch;
+    --border-radius: 1em;
+
+    align-items: center;
+    background-color: var(--color-bg);
+    border-radius: 99rem;
+    color: color-mix(in srgb, var(--card-color) 40%, var(--color-ink));
+    display: inline-flex;
+    gap: var(--inline-space);
+    justify-content: center;
+    padding: var(--card-cutout-padding-block) 1.5ch;
+    position: relative;
+    text-align: center;
+    z-index: 0;
+
+    &:has([open]) {
+      z-index: 1;
+    }
+
+    .btn:not(.popup__item, .btn--plain) {
+      --btn-background: var(--card-color);
+      --btn-color: var(--color-ink-reversed);
+    }
+
+    .btn--plain {
+      --btn-color: var(--card-color);
+
+      text-decoration: underline;
+    }
+  }
+
+  .card-container__cutout--top {
+    min-inline-size: 36ch;
+    translate: 0 50%;
+
+    #header:has(&) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .switch__input:checked + .switch__btn {
+      background-color: var(--card-color) !important;
+    }
+
+    strong {
+      flex: 1 0 42%;
+      text-align: end;
+
+      &:last-of-type {
+        text-align: start;
+      }
+    }
+  }
+
+  .card-container__cutout--bottom {
+    padding-inline-start: 0.5ch;
+    translate: 0 -50%;
+  }
+
+  .card-container__closure-message {
+    color: var(--card-color);
+  }
+
+  /* Variants
+  /* ------------------------------------------------------------------------ */
+
+  .card-container--pointing {
+    --arrow-size: 20em;
+    --aspect-ratio: 7;
+
+    position: relative;
+    margin-block-end: calc(var(--arrow-size) / var(--aspect-ratio));
+
+    &::after {
+      aspect-ratio: var(--aspect-ratio);
+      background-color: var(--color-container);
+      clip-path: polygon(50% 100%, 100% 0, 0 0);
+      inline-size: var(--arrow-size);
+      content: "";
+      display: block;
+      inset-block-start: 99%;
+      inset-inline-start: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      z-index: -1;
+    }
+  }
+}
