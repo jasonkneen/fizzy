@@ -8,8 +8,7 @@
       <div class="flex-inline" data-controller="soft-keyboard">
         <%= link_to new_card_comment_reaction_path(comment.card, comment), role: "button",
               class: "btn reaction__action", action: "soft-keyboard#open" do %>
-          <%= icon_tag "reaction" %>
-          <span class="for-screen-reader">Add a reaction</span>
+          <%= icon_tag "reaction" %> <span class="for-screen-reader">Add a reaction</span>
         <% end %>
       </div>
     <% end %>
