@@ -6,10 +6,10 @@ module Event::Particulars
   end
 
   def assignees
-    @assignees ||= account.users.where id: assignee_ids
+    @assignees ||= User.where id: assignee_ids
   end
 
   def comment
-    @comment ||= account.comments.find_by(id: comment_id)
+    @comment ||= Comment.find_by id: comment_id
   end
 end
