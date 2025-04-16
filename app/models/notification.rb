@@ -25,6 +25,6 @@ class Notification < ApplicationRecord
 
   private
     def broadcast
-      broadcast_prepend_to user, :notifications, target: "notifications"
+      broadcast_prepend_later_to user, :notifications, target: "notifications"
     end
 end
