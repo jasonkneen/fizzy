@@ -7,20 +7,23 @@
     /* FIXME: Magic number */
     --tray-item-height: calc(2.625lh + var(--block-space));
     --tray-item-height: 76px;
+    --tray-bottom-padding: var(--block-space-half);
 
     background-color: transparent;
+    block-size: var(--footer-height);
     border: 0;
     display: flex;
     flex-direction: column;
     inline-size: var(--tray-size);
-    justify-content: end;
-    padding: var(--block-space-half) var(--inline-space) calc(var(--block-space-half) / 2);
+    inset-block: auto 0;
+    justify-content: center;
+    padding: 0;
     position: fixed;
     z-index: var(--z-tray);
 
     .tray__item {
       --tray-item-offset: var(--block-space);
-      --tray-item-y: calc((var(--tray-item-index) - 1) * (var(--tray-item-offset) * -1));
+      --tray-item-y: calc((var(--tray-item-index) - 1) * (var(--tray-item-offset) * -1) - var(--tray-bottom-padding));
       --tray-item-index: 1;
       --tray-item-scale: calc(1 - var(--tray-item-index) / 30);
       --tray-item-z: calc(6 - var(--tray-item-index));
@@ -47,7 +50,7 @@
       &:nth-child(6) { --tray-item-index: 6; }
 
       .tray[open] & {
-        --tray-item-y: calc(-100% * var(--tray-item-index));
+        --tray-item-y: calc(-100% * var(--tray-item-index) + var(--tray-item-height) - var(--footer-height));
         --tray-item-scale: 1;
 
         /* FIXME: Space below the list when open */
@@ -117,9 +120,9 @@
 
   .tray__overflow {
     --hover-size: 0;
-    --tray-item-y: calc((var(--tray-item-index) - 1) * (var(--block-space) * -1));
     --tray-item-index: 7;
     --tray-item-scale: calc(1 - var(--tray-item-index) / 30);
+    --tray-item-y: calc((var(--tray-item-index) - 1) * (var(--tray-item-offset) * -1) - var(--tray-bottom-padding));
     --tray-item-z: calc(6 - var(--tray-item-index));
 
     background-color: var(--color-canvas);
@@ -150,7 +153,7 @@
     }
 
     .tray[open] & {
-      --tray-item-y: calc(var(--tray-item-index) * -100%);
+      --tray-item-y: calc(-100% * var(--tray-item-index) + var(--tray-bottom-padding));
       --tray-item-scale: 1;
 
       opacity: 1;
@@ -192,7 +195,8 @@
   /* ------------------------------------------------------------------------ */
 
   .tray--pins {
-    inset: auto auto var(--block-space-half) var(--inline-space);
+    /* inset: auto auto var(--block-space-half) var(--inline-space); */
+    inset-inline: var(--inline-space) auto;
 
     .tray__item {
       --tray-item-z: calc(10 - var(--tray-item-index));
@@ -259,7 +263,8 @@
   /* ------------------------------------------------------------------------ */
 
   .tray--notifications {
-    inset: auto var(--inline-space) var(--block-space-half) auto;
+    /* inset: auto var(--inline-space) var(--block-space-half) auto; */
+    inset-inline: auto var(--inline-space);
 
     .tray__item:nth-child(1n + 7) {
       display: none;
