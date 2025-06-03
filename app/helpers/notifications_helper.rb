@@ -2,7 +2,7 @@ module NotificationsHelper
   def event_notification_title(event)
     case event_notification_action(event)
     when "comment_created" then "RE: #{card_notification_title(event.eventable.card)}"
-    when "card_assigned" then "Assigned to #{event.assignees.pluck(:name).to_sentence}: #{card_notification_title(event.eventable)}"
+    when "card_assigned" then "Assigned to #{event.assignees.none? ? "self" : event.assignees.pluck(:name).to_sentence}: #{card_notification_title(event.eventable)}"
     else card_notification_title(event.eventable)
     end
   end

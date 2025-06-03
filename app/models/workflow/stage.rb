@@ -1,5 +1,5 @@
 class Workflow::Stage < ApplicationRecord
-  belongs_to :workflow
+  belongs_to :workflow, touch: true
 
   before_validation :assign_random_color, on: :create
 

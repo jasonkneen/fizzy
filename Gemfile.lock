@@ -16,6 +16,23 @@ GIT
       zeitwerk
 
 GIT
+  remote: https://github.com/basecamp/kamal
+  revision: 344e2d7995e0134aa52f195a984d8d5e24e31d94
+  ref: 344e2d79
+  specs:
+    kamal (2.6.1)
+      activesupport (>= 7.0)
+      base64 (~> 0.2)
+      bcrypt_pbkdf (~> 1.0)
+      concurrent-ruby (~> 1.2)
+      dotenv (~> 3.1)
+      ed25519 (~> 1.4)
+      net-ssh (~> 7.3)
+      sshkit (>= 1.23.0, < 2.0)
+      thor (~> 1.3)
+      zeitwerk (>= 2.6.18, < 3.0)
+
+GIT
   remote: https://github.com/basecamp/rails-structured-logging
   revision: 76960cb5c15fc2b6b5f7542e05d7dcc031cef9e6
   specs:
@@ -246,17 +263,6 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
     json (2.12.2)
-    kamal (2.6.1)
-      activesupport (>= 7.0)
-      base64 (~> 0.2)
-      bcrypt_pbkdf (~> 1.0)
-      concurrent-ruby (~> 1.2)
-      dotenv (~> 3.1)
-      ed25519 (~> 1.4)
-      net-ssh (~> 7.3)
-      sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.3)
-      zeitwerk (>= 2.6.18, < 3.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -511,7 +517,7 @@ DEPENDENCIES
   image_processing (~> 1.14)
   importmap-rails
   jbuilder
-  kamal
+  kamal!
   mission_control-jobs
   platform_agent
   propshaft

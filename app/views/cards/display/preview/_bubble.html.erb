@@ -1,7 +1,7 @@
 <div hidden class="bubble bubble--<%= card.engagement_status %>"
      data-controller="bubble" data-action="turbo:morph-element->bubble#update"
      data-bubble-reminder-before-value="<%= Card::ENTROPY_REMINDER_BEFORE.in_days.to_i %>"
-     data-bubble-closes-at-value="<%= card.auto_close_at.iso8601 %>"
+     data-bubble-closes-at-value="<%= card.entropy_cleaned_at.iso8601 %>"
      data-bubble-entropy-action-value="<%= card_entropy_action(card) %>">
   <svg viewBox="0 0 200 100">
     <path id="top-half" fill="transparent" d="M 20,100 A 80,80 0 0,1 180,100" />

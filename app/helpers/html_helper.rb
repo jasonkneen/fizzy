@@ -34,7 +34,16 @@ module HtmlHelper
 
     def auto_link_urls(linked_content)
       linked_content.gsub!(URL_REGEXP) do |match|
-        %(<a href="#{match}" rel="noreferrer">#{match}</a>)
+        url, trailing_punct = extract_url_and_punctuation(match)
+        %(<a href="#{url}" rel="noreferrer">#{url}</a>#{trailing_punct})
+      end
+    end
+
+    def extract_url_and_punctuation(url_match)
+      if url_match.end_with?(".", "?", ",", ":")
+        [ url_match[..-2], url_match[-1] ]
+      else
+        [ url_match, "" ]
       end
     end
 

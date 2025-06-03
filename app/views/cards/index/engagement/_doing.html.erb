@@ -8,7 +8,7 @@
   <% end %>
 
   <% if page.used? %>
-    <%= render partial: "cards/display/preview", collection: page.records, as: :card, cached: true %>
+    <%= render partial: "cards/display/preview", collection: page.records, as: :card, cached: ->(record) { [ record, record.collection.workflow ] } %>
 
     <% unless page.last? %>
       <%= cards_next_page_link "doing-cards", page: page, filter: filter %>
