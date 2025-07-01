@@ -16,10 +16,10 @@
 
     :is(img, .icon) {
       aspect-ratio: 1;
-      block-size: auto;
+      block-size: 100%;
       border-radius: var(--avatar-border-radius);
       grid-area: 1/1;
-      inline-size: var(--avatar-size, var(--avatar-size-default));
+      inline-size: 100%;
       max-inline-size: 100%;
       object-fit: cover;
     }
