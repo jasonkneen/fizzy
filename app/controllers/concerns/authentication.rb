@@ -81,7 +81,7 @@ module Authentication
     def set_current_session(session)
       logger.struct "  Authorized User##{session.user.id}", authentication: { user: { id: session.user.id } }
       Current.session = session
-      cookies.signed.permanent[:session_token] = { value: session.signed_id, httponly: true, same_site: :lax }
+      cookies.signed.permanent[:session_token] = { value: session.signed_id, httponly: true, same_site: :lax, path: Account.sole.slug }
     end
 
     def terminate_session
