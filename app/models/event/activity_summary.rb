@@ -8,10 +8,11 @@ class Event::ActivitySummary < ApplicationRecord
       key = key_for(events)
 
       # Outside to avoid holding the transaction during the LLM request
-      summary = Event::Summarizer.new(events).summarize
+      summary, cost_in_microcents = Event::Summarizer.new(events).summarize
 
       create_or_find_by!(key: key) do |record|
         record.content = summary
+        record.cost_in_microcents = cost_in_microcents
       end
     end
 

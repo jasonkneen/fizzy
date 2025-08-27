@@ -67,11 +67,11 @@ class ConversationTest < ActiveSupport::TestCase
     conversation.ask("Where does the planning office keep demolition notices?")
     conversation.respond(
       "In a locked filing cabinet in a disused lavatory",
-      cost_microcents: Ai::Quota::Money.wrap("$3").in_microcents
+      cost_in_microcents: Ai::Quota::Money.wrap("$3").in_microcents
     )
 
     conversation.ask("What's the meaning of life?")
-    conversation.respond("42", cost_microcents: Ai::Quota::Money.wrap("$120").in_microcents)
+    conversation.respond("42", cost_in_microcents: Ai::Quota::Money.wrap("$120").in_microcents)
 
     assert_raises Ai::Quota::UsageExceedsQuotaError do
       conversation.ask("Should you leave a house without a towel?")
@@ -80,6 +80,6 @@ class ConversationTest < ActiveSupport::TestCase
     travel 1.month
 
     conversation.ask("Should you leave a house without a towel?")
-    conversation.respond("Never", cost_microcents: Ai::Quota::Money.wrap("$0.01").in_microcents)
+    conversation.respond("Never", cost_in_microcents: Ai::Quota::Money.wrap("$0.01").in_microcents)
   end
 end

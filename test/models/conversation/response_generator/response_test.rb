@@ -20,13 +20,13 @@ class Conversation::Message::ResponseGenerator::ResponseTest < ActiveSupport::Te
 
     # We've got 198 input tokens, so that's
     # 198 * 3000 = 594000
-    assert_equal 594000, response.input_cost_microcents
+    assert_equal 594000, response.input_cost_in_microcents
 
     # We've got 2 output tokens, so that's
     # 2 * 6000 = 12
-    assert_equal 12000, response.output_cost_microcents
+    assert_equal 12000, response.output_cost_in_microcents
 
     # So the total is 594000 + 12000 micro-cents
-    assert_equal 606000, response.cost_microcents
+    assert_equal 606000, response.cost_in_microcents
   end
 end

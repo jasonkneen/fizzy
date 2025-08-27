@@ -23,6 +23,7 @@ class Admin::PromptSandboxesController < AdminController
   private
     def build_activity_summary
       summarizer = Event::Summarizer.new(@day_timeline.events, prompt: @prompt, llm_model: @llm_model)
-      Event::ActivitySummary.new(content: summarizer.summarize)
+      content, cost_in_microcents = summarizer.summarize
+      Event::ActivitySummary.new(content: content, cost_in_microcents: cost_in_microcents)
     end
 end

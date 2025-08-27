@@ -8,11 +8,11 @@ class Conversation::Message::ResponseGenerator::Response
     @model_id = model_id
   end
 
-  def cost_microcents
-    input_cost_microcents + output_cost_microcents
+  def cost_in_microcents
+    input_cost_in_microcents + output_cost_in_microcents
   end
 
-  def input_cost_microcents
+  def input_cost_in_microcents
     return unless token_price = input_token_price_microcents
 
     (input_tokens * token_price).to_i
@@ -24,7 +24,7 @@ class Conversation::Message::ResponseGenerator::Response
     price_per_million_tokens_in_microcents(model_info.input_price_per_million)
   end
 
-  def output_cost_microcents
+  def output_cost_in_microcents
     return unless token_price = output_token_price_microcents
 
     (output_tokens * token_price).to_i

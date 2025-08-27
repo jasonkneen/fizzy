@@ -5,9 +5,9 @@ kevins_question:
   model_id: "gpt-4.1-2025-04-14"
   input_tokens: 3765
   output_tokens: 331
-  input_cost_microcents: 753
-  output_cost_microcents: 300
-  cost_microcents: 1053
+  input_cost_in_microcents: 753
+  output_cost_in_microcents: 300
+  cost_in_microcents: 1053
 
 kevins_answer:
   conversation: kevin

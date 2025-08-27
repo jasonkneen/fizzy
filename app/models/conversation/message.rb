@@ -14,7 +14,7 @@ class Conversation::Message < ApplicationRecord
   scope :ordered, -> { order(created_at: :asc, id: :asc) }
 
   def cost
-    cost_microcents && Ai::Quota::Money.new(cost_microcents)
+    cost_in_microcents && Ai::Quota::Money.new(cost_in_microcents)
   end
 
   def all_emoji?

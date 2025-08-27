@@ -639,7 +639,7 @@ columns:
     comment:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
-    name: cost_microcents
+    name: cost_in_microcents
     cast_type: *11
     sql_type_metadata: *12
     'null': true
@@ -651,7 +651,7 @@ columns:
   - *6
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
-    name: input_cost_microcents
+    name: input_cost_in_microcents
     cast_type: *11
     sql_type_metadata: *12
     'null': true
@@ -681,7 +681,7 @@ columns:
     comment:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
-    name: output_cost_microcents
+    name: output_cost_in_microcents
     cast_type: *11
     sql_type_metadata: *12
     'null': true
@@ -790,6 +790,16 @@ columns:
     sql_type_metadata: *16
     'null': false
     default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: cost_in_microcents
+    cast_type: *11
+    sql_type_metadata: *12
+    'null': false
+    default: 0
     default_function:
     collation:
     comment:
@@ -944,6 +954,41 @@ columns:
     collation:
     comment:
   - *9
+  notification_bundles:
+  - *5
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: ends_at
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - *6
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: starts_at
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: status
+    cast_type: *3
+    sql_type_metadata: *4
+    'null': false
+    default: 0
+    default_function:
+    collation:
+    comment:
+  - *9
+  - *18
   notifications:
   - *5
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
@@ -1320,6 +1365,7 @@ primary_keys:
   filters_stages:
   filters_tags:
   mentions: id
+  notification_bundles: id
   notifications: id
   pins: id
   push_subscriptions: id
@@ -1369,6 +1415,7 @@ data_sources:
   filters_stages: true
   filters_tags: true
   mentions: true
+  notification_bundles: true
   notifications: true
   pins: true
   push_subscriptions: true
@@ -2364,6 +2411,59 @@ indexes:
     nulls_not_distinct:
     comment:
     valid: true
+  notification_bundles:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: notification_bundles
+    name: idx_on_user_id_starts_at_ends_at_7eae5d3ac5
+    unique: false
+    columns:
+    - user_id
+    - starts_at
+    - ends_at
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: notification_bundles
+    name: index_notification_bundles_on_ends_at_and_status
+    unique: false
+    columns:
+    - ends_at
+    - status
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: notification_bundles
+    name: index_notification_bundles_on_user_id_and_status
+    unique: false
+    columns:
+    - user_id
+    - status
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
   notifications:
   - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
     table: notifications
@@ -2841,4 +2941,4 @@ indexes:
     comment:
     valid: true
   workflows: []
-version: 20250819105245
+version: 20250827072601
