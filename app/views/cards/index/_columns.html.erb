@@ -5,7 +5,7 @@
       <%= render "cards/index/engagement/considering", user_filtering: user_filtering, **considering.to_h %>
       <%= render "cards/index/engagement/doing", user_filtering: user_filtering, **doing.to_h %>
     <% end %>
-
-    <%= render "cards/index/engagement/closed", user_filtering: user_filtering, **closed.to_h %>
   </div>
+
+  <%= render "cards/index/engagement/closed", user_filtering: user_filtering, **closed.to_h %>
 <% end %>
