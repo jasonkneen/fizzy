@@ -9,15 +9,15 @@ class Cards::Columns
   end
 
   def considering
-    @considering ||= build_column(filter.with(engagement_status: "considering"))
+    @considering ||= build_column_for "considering"
   end
 
   def on_deck
-    @on_deck ||= build_column(filter.with(engagement_status: "on_deck"))
+    @on_deck ||= build_column_for "on_deck"
   end
 
   def doing
-    @doing ||= build_column(filter.with(engagement_status: "doing"))
+    @doing ||= build_column_for "doing"
   end
 
   def closed
@@ -33,6 +33,10 @@ class Cards::Columns
   end
 
   private
+    def build_column_for(engagement_status)
+      build_column(filter.with(engagement_status: engagement_status))
+    end
+
     def build_column(filter, &block)
       cards = block ? yield(filter.cards) : filter.cards
 
