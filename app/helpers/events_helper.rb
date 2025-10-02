@@ -52,17 +52,6 @@ module EventsHelper
     tag.div class: "events__time-block", style: "grid-area: #{row}/#{col}", &
   end
 
-  def event_next_page_link(next_day)
-    if next_day
-      tag.div id: "next_page",
-        data: { controller: "fetch-on-visible",
-                fetch_on_visible_url_value: events_days_path(
-                  day: next_day.strftime("%Y-%m-%d"),
-                  **@filter.as_params
-                ) }
-    end
-  end
-
   def event_action_sentence(event)
     if event.action.comment_created?
       comment_event_action_sentence(event)

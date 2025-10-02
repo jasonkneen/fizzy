@@ -14,7 +14,10 @@
   </h1>
 <% end %>
 
-<div class="events" id="activity">
-  <%= render "events/day", day_timeline: @day_timeline %>
-</div>
-<%= event_next_page_link(@day_timeline.next_day) %>
+<%= tag.div id: "activity", class: "events", data: { controller: "pagination", pagination_paginate_on_intersection_value: true } do %>
+  <%= day_timeline_pagination_frame_tag @day_timeline do %>
+    <%= render "events/day", day_timeline: @day_timeline %>
+
+    <%= day_timeline_pagination_link(@day_timeline, @filter) %>
+  <% end %>
+<% end %>

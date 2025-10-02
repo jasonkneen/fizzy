@@ -52,8 +52,8 @@ class CardsController < ApplicationController
       @card = Current.user.accessible_cards.find params[:id]
     end
 
-    def suppressing_broadcasts_unless_published(&block)
-      if @card.published?
+    def suppressing_broadcasts_unless_published(card, &block)
+      if card.published?
         yield
       else
         Collection.suppressing_turbo_broadcasts(&block)
