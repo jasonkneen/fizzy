@@ -105,8 +105,11 @@
     gap: var(--cards-gap);
     margin-block-start: -1ch;
     margin-inline: -1ch;
-    padding: 1ch;
     overflow: hidden;
+
+    .cards:not(.is-collapsed) & {
+      padding: 1ch;
+    }
 
     .card {
       inline-size: calc(var(--column-width-expanded) - var(--column-padding-expanded) * 2);
