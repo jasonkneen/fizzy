@@ -45,11 +45,11 @@ gum style --foreground 135 --bold "Migration or schema files changed:"
 gum style --foreground 240 "$changed_files"
 echo
 
-step "Deleting schema files" rm -f db/schema.rb db/schema_cache.yml
+step "Deleting schema files" rm -f db/untenanted_schema.rb db/schema.rb db/schema_cache.yml
 
 step "Deleting tenant directory" rm -rf storage/tenants/development/686465299
 
-step --spin "Migrating..." "Regenerating schema files" bin/rails db:migrate
+step --spin "Migrating..." "Regenerating schema files" bin/rails db:migrate ARTENANT=686465299
 
 # Check if the schema files have any git changes
 if git diff --quiet -- db/schema.rb db/schema_cache.yml; then
