@@ -65,10 +65,10 @@
 
     border-radius: calc(var(--column-width-collapsed) / 2);
     inline-size: var(--column-width-expanded);
-    margin-block-start: 0;
     position: relative;
     scroll-snap-align: start;
-    transition: margin-block-start var(--column-transition-duration) var(--ease-out-overshoot-subtle);
+    translate: 0;
+    transition: translate var(--column-transition-duration) var(--ease-out-overshoot-subtle);
 
     .no-transitions & {
       transition: none;
@@ -87,7 +87,7 @@
       }
 
       &:not(.cards--considering) {
-        margin-block-start: var(--column-width-collapsed);
+        translate: 0 var(--column-width-collapsed);
       }
     }
 
@@ -108,16 +108,10 @@
     gap: var(--cards-gap);
     margin-block-start: -1ch;
     margin-inline: -1ch;
-    opacity: 0;
     overflow: hidden;
-    translate: 0 -1ch;
-    transition: var(--column-transition-duration) var(--ease-out-overshoot);
-    transition-property: opacity, translate;
 
     .cards:not(.is-collapsed) & {
-      opacity: 1;
       padding: 1ch;
-      translate: 0 0;
     }
 
     .card {
@@ -126,10 +120,6 @@
 
     .cards--grid & {
       display: contents;
-    }
-
-    .no-transitions & {
-      transition: none;
     }
   }
 
