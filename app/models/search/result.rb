@@ -4,15 +4,15 @@ class Search::Result < ApplicationRecord
   belongs_to :comment, foreign_key: :comment_id, optional: true
 
   def card_title
-    escape_highlight card_title_in_database
+    highlight(card_title_in_database, show: :full)
   end
 
   def card_description
-    escape_highlight card_description_in_database
+    highlight(card_description_in_database, show: :snippet)
   end
 
   def comment_body
-    escape_highlight comment_body_in_database
+    highlight(comment_body_in_database, show: :snippet)
   end
 
   def source
@@ -24,14 +24,12 @@ class Search::Result < ApplicationRecord
   end
 
   private
-    def escape_highlight(html)
-      if html
-        CGI.escapeHTML(html)
-          .gsub(CGI.escapeHTML(Search::HIGHLIGHT_OPENING_MARK), Search::HIGHLIGHT_OPENING_MARK.html_safe)
-          .gsub(CGI.escapeHTML(Search::HIGHLIGHT_CLOSING_MARK), Search::HIGHLIGHT_CLOSING_MARK.html_safe)
-          .html_safe
+    def highlight(text, show:)
+      if text.present? && attribute?(:query)
+        highlighter = Search::Highlighter.new(query)
+        show == :snippet ? highlighter.snippet(text) : highlighter.highlight(text)
       else
-        nil
+        text
       end
     end
 end

@@ -14,11 +14,11 @@ module Card::Searchable
 
   private
     def search_title
-      title
+      Search::Stemmer.stem title
     end
 
     def search_content
-      description.to_plain_text
+      Search::Stemmer.stem description.to_plain_text
     end
 
     def search_card_id

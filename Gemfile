@@ -33,6 +33,7 @@ gem "platform_agent"
 gem "aws-sdk-s3", require: false
 gem "web-push"
 gem "net-http-persistent"
+gem "mittens"
 
 # Telemetry, logging, and operations
 gem "mission_control-jobs"

@@ -12,7 +12,9 @@ class Search::Query < ApplicationRecord
     end
   end
 
-  alias_attribute :to_s, :terms
+  def to_s
+    Search::Stemmer.stem(terms.to_s)
+  end
 
   private
     def sanitize_terms

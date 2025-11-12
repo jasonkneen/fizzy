@@ -11,7 +11,7 @@ module Comment::Searchable
     end
 
     def search_content
-      body.to_plain_text
+      Search::Stemmer.stem body.to_plain_text
     end
 
     def search_card_id

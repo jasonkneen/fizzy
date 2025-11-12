@@ -1,9 +1,6 @@
 class Search
   attr_reader :user, :query
 
-  HIGHLIGHT_OPENING_MARK = "<mark class=\"circled-text\"><span></span>"
-  HIGHLIGHT_CLOSING_MARK = "</mark>"
-
   def self.table_name_prefix
     "search_"
   end
@@ -29,6 +26,7 @@ class Search
     def perform_search
       query_string = query.to_s
       sanitized_query = Search::Result.connection.quote(query_string)
+      sanitized_raw_query = Search::Result.connection.quote(query.terms)
 
       Search::Result.from("search_index")
         .joins("INNER JOIN cards ON search_index.card_id = cards.id")
@@ -44,7 +42,8 @@ class Search
           "boards.name as board_name",
           "cards.creator_id",
           "search_index.created_at as created_at",
-          "MATCH(search_index.content, search_index.title) AGAINST(#{sanitized_query} IN BOOLEAN MODE) AS score"
+          "MATCH(search_index.content, search_index.title) AGAINST(#{sanitized_query} IN BOOLEAN MODE) AS score",
+          "#{sanitized_raw_query} AS query"
         ].join(","))
         .order("search_index.created_at DESC")
     end
