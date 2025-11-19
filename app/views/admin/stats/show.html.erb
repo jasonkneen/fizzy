@@ -59,11 +59,15 @@
     <ul class="margin-block-half">
       <% @top_accounts.each do |account| %>
         <% admin_user = account.users.find { |u| u.role == "admin" } %>
-        <li class="flex align-center gap-half margin-block-start-half">
-          <div class="flex-item-grow min-width overflow-ellipsis" style="text-align: left">
+        <li class="flex align-start gap-half margin-block-start-half">
+          <div
+            class="flex-item-grow min-width overflow-ellipsis"
+            style="text-align: left"
+          >
             <strong><%= account.name %></strong>
+            <br>
             <span class="txt-x-small txt-ink-medium">
-              • #<%= account.external_account_id %> •
+              #<%= account.external_account_id %> •
               <%= admin_user&.identity&.email_address || "No admin" %>
             </span>
           </div>
