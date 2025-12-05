@@ -60,18 +60,18 @@ The values you enter here will be specific to you, and you can get or create the
 - `SECRET_KEY_BASE` should be a long, random secret. You can run `bin/rails secret` to create a suitable value for this.
 - `VAPID_PUBLIC_KEY` & `VAPID_PRIVATE_KEY` are a pair of credentials that are used for sending notifications. You can create your own keys by starting a development console with:
 
-```sh
-bin/rails c
-```
+  ```sh
+  bin/rails c
+  ```
 
-And then run the following to create a new pair of keys:
+  And then run the following to create a new pair of keys:
 
-```ruby
-vapid_key = WebPush.generate_key
+  ```ruby
+  vapid_key = WebPush.generate_key
 
-puts "VAPID_PRIVATE_KEY=#{vapid_key.private_key}"
-puts "VAPID_PUBLIC_KEY=#{vapid_key.public_key}"
-```
+  puts "VAPID_PRIVATE_KEY=#{vapid_key.private_key}"
+  puts "VAPID_PUBLIC_KEY=#{vapid_key.public_key}"
+  ```
 
 - `SMTP_USERNAME`/`SMTP_PASSWORD` are credentials you should get from your email provider.
 
