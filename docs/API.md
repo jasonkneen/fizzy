@@ -98,7 +98,7 @@ When a request fails, the API response will communicate the source of the proble
 
 If a request contains invalid data for fields, such as entering a string into a number field, in most cases the API will respond with a `500 Internal Server Error`. Clients are expected to perform some validation on their end before making a request.
 
-Validation error will produce a `422 Unprocessable Entity` which will sometimes be accompanied by details about the validation errors:
+A validation error will produce a `422 Unprocessable Entity` response, which will sometimes be accompanied by details about the error:
 
 ```json
 {
@@ -125,7 +125,7 @@ curl -H "Authorization: Bearer put-your-access-token-here" -H "Accept: applicati
 When an endpoint accepts a list of values as a parameter, you can provide multiple values by repeating the parameter name:
 
 ```
-?tags_ids[]=tag1&tags_ids[]=tag2&tags_ids[]=tag3
+?tag_ids[]=tag1&tag_ids[]=tag2&tag_ids[]=tag3
 ```
 
 List parameters always end with `[]`.
@@ -233,11 +233,11 @@ The `sgid` attribute should contain the `signed_id` returned from the direct upl
 
 ## Identity
 
-An Identity represents a person using Fizzy, their email address and their users in different accounts.
+An Identity represents a person using Fizzy.
 
 ### `GET /my/identity`
 
-Returns a list of accounts, including the User, the Identity has access to
+Returns a list of accounts the identity has access to, including the user for each account.
 
 ```json
 {
@@ -282,7 +282,7 @@ Boards are where you organize your work - they contain your cards.
 
 ### `GET /:account_slug/boards`
 
-Returns a list of Boards, that you can access, in the specified account.
+Returns a list of boards that you can access in the specified account.
 
 __Response:__
 
@@ -309,7 +309,7 @@ __Response:__
 
 ### `GET /:account_slug/boards/:board_id`
 
-Returns the specific Board.
+Returns the specified board.
 
 __Response:__
 
@@ -746,7 +746,7 @@ Returns `204 No Content` on success.
 
 ## Reactions
 
-Reactions are short - 16 character long - responses to comments.
+Reactions are short (16-character max) responses to comments.
 
 ### `GET /:account_slug/cards/:card_number/comments/:comment_id/reactions`
 
@@ -779,7 +779,7 @@ Adds a reaction to a comment.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `content` | string | Yes | The reaction text") |
+| `content` | string | Yes | The reaction text |
 
 __Request:__
 
