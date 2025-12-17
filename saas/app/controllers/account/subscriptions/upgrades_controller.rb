@@ -1,28 +1,12 @@
-class Account::Subscriptions::UpgradesController < ApplicationController
-  before_action :ensure_admin
-
-  def create
-    portal_session = Stripe::BillingPortal::Session.create(
-      customer: subscription.stripe_customer_id,
-      return_url: account_settings_url(anchor: "subscription"),
-      flow_data: {
-        type: "subscription_update_confirm",
-        subscription_update_confirm: {
-          subscription: subscription.stripe_subscription_id,
-          items: [ { id: stripe_subscription_item_id, price: Plan.paid_with_extra_storage.stripe_price_id } ]
-        }
-      }
-    )
-
-    redirect_to portal_session.url, allow_other_host: true
-  end
+class Account::Subscriptions::UpgradesController < Account::Subscriptions::UpdatePlanController
+  before_action :ensure_upgradeable
 
   private
-    def subscription
-      @subscription ||= Current.account.subscription
+    def target_plan
+      Plan.paid_with_extra_storage
     end
 
-    def stripe_subscription_item_id
-      Stripe::Subscription.retrieve(subscription.stripe_subscription_id).items.data.first.id
+    def ensure_upgradeable
+      head :bad_request unless subscription.plan == Plan.paid
     end
 end

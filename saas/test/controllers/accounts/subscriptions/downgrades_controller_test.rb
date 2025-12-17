@@ -6,7 +6,7 @@ class Account::Subscriptions::DowngradesControllerTest < ActionDispatch::Integra
     sign_in_as :kevin
     accounts(:"37s").subscription.update!(
       stripe_subscription_id: "sub_123",
-      plan_key: Plan.paid_with_extra_storage.key
+      plan: Plan.paid_with_extra_storage
     )
   end
 
@@ -29,5 +29,12 @@ class Account::Subscriptions::DowngradesControllerTest < ActionDispatch::Integra
 
     post account_subscription_downgrade_path
     assert_response :forbidden
+  end
+
+  test "downgrade requires downgradeable plan" do
+    accounts(:"37s").subscription.update!(plan: Plan.paid)
+
+    post account_subscription_downgrade_path
+    assert_response :bad_request
   end
 end

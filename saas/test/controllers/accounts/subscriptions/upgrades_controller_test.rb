@@ -6,7 +6,7 @@ class Account::Subscriptions::UpgradesControllerTest < ActionDispatch::Integrati
     sign_in_as :kevin
     accounts(:"37s").subscription.update!(
       stripe_subscription_id: "sub_123",
-      plan_key: Plan.paid.key
+      plan: Plan.paid
     )
   end
 
@@ -29,5 +29,12 @@ class Account::Subscriptions::UpgradesControllerTest < ActionDispatch::Integrati
 
     post account_subscription_upgrade_path
     assert_response :forbidden
+  end
+
+  test "upgrade requires upgradeable plan" do
+    accounts(:"37s").subscription.update!(plan: Plan.paid_with_extra_storage)
+
+    post account_subscription_upgrade_path
+    assert_response :bad_request
   end
 end
