@@ -32,5 +32,12 @@
     .card-perma {
       margin-block-start: 0;
     }
+
+    /* Search
+    /* ------------------------------------------------------------------------ */
+
+    .search__title {
+      text-decoration: none;
+    }
   }
 }
