@@ -8,9 +8,10 @@ module Search::Record::SQLite
     has_one :search_records_fts, -> { with_rowid },
       class_name: "Search::Record::SQLite::Fts", foreign_key: :rowid, primary_key: :id, dependent: :destroy
 
+    before_save :stem_content
     after_save :upsert_to_fts5_table
 
-    scope :matching, ->(query, account_id) { joins(:search_records_fts).where("search_records_fts MATCH ?", query) }
+    scope :matching, ->(query, account_id) { joins(:search_records_fts).where("search_records_fts MATCH ?", Search::Stemmer.stem(query.to_s)) }
   end
 
   class_methods do
@@ -42,6 +43,11 @@ module Search::Record::SQLite
   end
 
   private
+    def stem_content
+      self.title = Search::Stemmer.stem(title) if title_changed?
+      self.content = Search::Stemmer.stem(content) if content_changed?
+    end
+
     def escape_fts_highlight(html)
       return nil unless html.present?
 

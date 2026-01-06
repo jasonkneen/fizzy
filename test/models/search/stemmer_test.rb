@@ -13,39 +13,39 @@ class Search::StemmerTest < ActiveSupport::TestCase
     assert_equal "test run jump walk", result
   end
 
-  test "preserve Chinese characters" do
+  test "split Chinese characters for FTS indexing" do
     result = Search::Stemmer.stem("测试")
 
-    assert_equal "测试", result
+    assert_equal "测 试", result
   end
 
-  test "preserve Japanese characters" do
+  test "split Japanese characters for FTS indexing" do
     result = Search::Stemmer.stem("テスト")
 
-    assert_equal "テスト", result
+    assert_equal "テ ス ト", result
   end
 
-  test "preserve Korean characters" do
+  test "split Korean characters for FTS indexing" do
     result = Search::Stemmer.stem("테스트")
 
-    assert_equal "테스트", result
+    assert_equal "테 스 트", result
   end
 
   test "mixed CJK and English" do
     result = Search::Stemmer.stem("running 测试 test")
 
-    assert_equal "run 测试 test", result
+    assert_equal "run 测 试 test", result
   end
 
   test "mixed CJK and English without spaces" do
     result = Search::Stemmer.stem("hello世界test")
 
-    assert_equal "hello 世界 test", result
+    assert_equal "hello 世 界 test", result
   end
 
   test "CJK punctuation is treated as separator" do
     result = Search::Stemmer.stem("你好。世界")
 
-    assert_equal "你好 世界", result
+    assert_equal "你 好 世 界", result
   end
 end
