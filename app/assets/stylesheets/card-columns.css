@@ -190,7 +190,7 @@
 
     @media (min-width: 640px) {
       .is-expanded & {
-        translate: 0; /* Reset when back from collapsed */
+        translate: 0; /* Animate back from collapsed state */
       }
 
       .is-collapsed & {
