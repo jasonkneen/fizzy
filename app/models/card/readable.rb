@@ -2,11 +2,11 @@ module Card::Readable
   extend ActiveSupport::Concern
 
   def read_by(user)
-    user.notifications.find_by(card: self)&.read
+    user.notifications.find_by(card: self)&.tap(&:read)
   end
 
   def unread_by(user)
-    user.notifications.find_by(card: self)&.unread
+    user.notifications.find_by(card: self)&.tap(&:unread)
   end
 
   def remove_inaccessible_notifications
