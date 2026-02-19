@@ -129,9 +129,4 @@ summary {
       padding-inline: 0;
     }
   }
-  .search-perma--empty {
-    .search {
-      display: none;
-    }
-  }
 }

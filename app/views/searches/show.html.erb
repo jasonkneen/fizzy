@@ -8,13 +8,13 @@
   <h1 class="header__title" data-bridge--title-target="header"><%= @page_title %></h1>
 <% end %>
 
-<%= tag.div(class: token_list("search-perma", {"search-perma--empty": !@query}, "margin-block-start")) do %>
+<div class="search-perma margin-block-start">
   <%= render "form", query_terms: @query %>
   <%= turbo_frame_tag "bar_content" do %>
     <% if @card %>
       <%= auto_submit_form_with url: card_path(@card), method: :get, data: { turbo_action: "advance", turbo_frame: "_top", search_redirect: true } %>
     <% else %>
-      <%= render "results", page: @page %>
+      <%= render "results", page: @page, query: @query %>
     <% end %>
   <% end %>
-<% end %>
+</div>
