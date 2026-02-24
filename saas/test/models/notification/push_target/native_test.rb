@@ -189,7 +189,8 @@ class Notification::PushTarget::NativeTest < ActiveSupport::TestCase
     native = push.send(:native_notification)
 
     assert_not_nil native.data[:url]
-    assert_equal @notification.account.external_account_id, native.data[:account_id]
+    assert_equal @notification.account.id, native.data[:account_id]
+    assert_equal @notification.account.slug, native.data[:account_slug]
     assert_equal @notification.creator.name, native.data[:creator_name]
   end
 
