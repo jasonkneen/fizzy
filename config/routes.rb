@@ -245,6 +245,10 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   get "service-worker" => "pwa#service_worker"
 
+  # Mobile clients
+  get "client_configurations/(:platform)_v(:version)" => "client_configurations#show",
+    platform: /android|ios/, version: /\d+/
+
   namespace :admin do
     mount MissionControl::Jobs::Engine, at: "/jobs"
   end
