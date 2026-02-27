@@ -24,6 +24,16 @@ class Notification::EventPayload < Notification::DefaultPayload
       "Reopened by #{event.creator.name}"
     when "card_triaged"
       "Moved to #{column_name} by #{event.creator.name}"
+    when "card_sent_back_to_triage"
+      "Moved back to Maybe? by #{event.creator.name}"
+    when "card_board_changed"
+      "Moved to #{new_board_name} by #{event.creator.name}"
+    when "card_title_changed"
+      "Renamed to #{new_title} by #{event.creator.name}"
+    when "card_postponed"
+      "Moved to Not Now by #{event.creator.name}"
+    when "card_auto_postponed"
+      "Moved to Not Now due to inactivity"
     else
       event.creator.name
     end
@@ -61,6 +71,14 @@ class Notification::EventPayload < Notification::DefaultPayload
 
     def column_name
       event.particulars.dig("particulars", "column")
+    end
+
+    def new_board_name
+      event.particulars.dig("particulars", "new_board")
+    end
+
+    def new_title
+      event.particulars.dig("particulars", "new_title")
     end
 
     def card_url_with_comment_anchor(comment)

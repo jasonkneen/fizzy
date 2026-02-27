@@ -77,6 +77,66 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
     Notification::PushTarget::Web.new(@notification).process
   end
 
+  test "payload for sent back to triage includes Maybe?" do
+    event = events(:logo_published)
+    event.update!(action: "card_sent_back_to_triage")
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved back to Maybe? by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for board change includes new board name" do
+    event = events(:logo_published)
+    event.update!(action: "card_board_changed", particulars: { "particulars" => { "old_board" => "Old Board", "new_board" => "New Board" } })
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved to New Board by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for title change includes new title" do
+    event = events(:logo_published)
+    event.update!(action: "card_title_changed", particulars: { "particulars" => { "old_title" => "Old Title", "new_title" => "New Title" } })
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Renamed to New Title by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for postponed includes Not Now" do
+    event = events(:logo_published)
+    event.update!(action: "card_postponed")
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved to Not Now by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
+  test "payload for auto postponed includes inactivity message" do
+    event = events(:logo_published)
+    event.update!(action: "card_auto_postponed")
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved to Not Now due to inactivity"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
   test "payload for mention includes mentioner name" do
     @web_push_pool.expects(:queue).once.with do |payload, _|
       payload[:title].include?("mentioned you")
