@@ -398,6 +398,7 @@
     position: absolute;
     rotate: 5deg;
     transform-origin: top right;
+    z-index: 2;
 
     .cards & {
       display: none;
