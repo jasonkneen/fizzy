@@ -65,6 +65,18 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
     Notification::PushTarget::Web.new(@notification).process
   end
 
+  test "payload for triage includes column name" do
+    event = events(:logo_published)
+    event.update!(action: "card_triaged", particulars: { "particulars" => { "column" => "In Progress" } })
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved to In Progress by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
   test "payload for mention includes mentioner name" do
     @web_push_pool.expects(:queue).once.with do |payload, _|
       payload[:title].include?("mentioned you")

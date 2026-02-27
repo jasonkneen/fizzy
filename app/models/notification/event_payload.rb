@@ -22,6 +22,8 @@ class Notification::EventPayload < Notification::DefaultPayload
       card.closure ? "Moved to Done by #{event.creator.name}" : "Closed by #{event.creator.name}"
     when "card_reopened"
       "Reopened by #{event.creator.name}"
+    when "card_triaged"
+      "Moved to #{column_name} by #{event.creator.name}"
     else
       event.creator.name
     end
@@ -55,6 +57,10 @@ class Notification::EventPayload < Notification::DefaultPayload
 
     def card_title
       card.title.presence || "Card #{card.number}"
+    end
+
+    def column_name
+      event.particulars.dig("particulars", "column")
     end
 
     def card_url_with_comment_anchor(comment)
