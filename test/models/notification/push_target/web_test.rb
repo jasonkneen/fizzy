@@ -89,6 +89,18 @@ class Notification::PushTarget::WebTest < ActiveSupport::TestCase
     Notification::PushTarget::Web.new(@notification).process
   end
 
+  test "payload for triage falls back when column name is blank" do
+    event = events(:logo_published)
+    event.update!(action: "card_triaged", particulars: { "particulars" => { "column" => "" } })
+    @notification.update!(source: event)
+
+    @web_push_pool.expects(:queue).once.with do |payload, _|
+      payload[:body] == "Moved by #{event.creator.name}"
+    end
+
+    Notification::PushTarget::Web.new(@notification).process
+  end
+
   test "payload for sent back to triage includes Maybe?" do
     event = events(:logo_published)
     event.update!(action: "card_sent_back_to_triage")
