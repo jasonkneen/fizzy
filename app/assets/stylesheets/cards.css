@@ -207,6 +207,10 @@
     line-height: 1.15;
     text-wrap: balance;
 
+    &.overflow-line-clamp {
+      text-wrap: unset; /* text-wrap: balance breaks -webkit-line-clamp in Safari */
+    }
+
     .card-field__title {
       overflow: hidden; /* prevent scrolling on windows */
       padding-block: var(--autosize-block-padding);
