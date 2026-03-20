@@ -71,6 +71,9 @@ class AutoLinkScrubber < Loofah::Scrubber
       end
 
       links
+    rescue Regexp::TimeoutError => error
+      Sentry.capture_exception error if Fizzy.saas?
+      []
     end
 
     def clean_url(url)
