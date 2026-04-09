@@ -190,7 +190,6 @@ Rails.application.routes.draw do
 
   namespace :prompts do
     resources :cards
-    resources :tags
     resources :users
 
     resources :boards do
