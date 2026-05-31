@@ -58,14 +58,17 @@ class ActiveStorage::DirectUploadsControllerTest < ActionDispatch::IntegrationTe
     end
   end
 
-  test "create with session token in another account is forbidden" do
+  test "create with session token from a cross-site request is forbidden" do
     sign_in_as :david
 
-    post rails_direct_uploads_path(script_name: "/#{ActiveRecord::FixtureSet.identify("initech")}"),
-      params: @blob_params,
-      as: :json
+    with_forgery_protection do
+      post rails_direct_uploads_path,
+        params: @blob_params,
+        headers: { "Sec-Fetch-Site" => "cross-site" },
+        as: :json
 
-    assert_response :forbidden
+      assert_response :unprocessable_entity
+    end
   end
 
   test "create with read-only access token" do
